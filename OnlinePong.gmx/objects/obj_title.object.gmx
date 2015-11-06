@@ -94,7 +94,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>gj_trophy_get("44061")
+            <string>gj_trophy_add("44061")
+obj_gamejolt_control.request[2] = gj_trophy_get_id("44061"); // Request for loading a trophy
 </string>
           </argument>
         </arguments>

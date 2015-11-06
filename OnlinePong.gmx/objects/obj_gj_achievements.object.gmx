@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -26,8 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>slideDirection = 0;
-curTitle = "";
-curMessage = "";
 draw_offset = 0;
 visible = false;
 </string>
@@ -52,14 +50,9 @@ visible = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (ds_queue_empty(global.GJmessageQueue))
-{
+            <string>
     slideDirection = -1;
-} else {
-    curTitle = ds_queue_dequeue(global.GJmessageQueue);
-    curMessage = ds_queue_dequeue(global.GJmessageQueue);
-    alarm[0] = 120;
-}
+
 </string>
           </argument>
         </arguments>
@@ -89,28 +82,32 @@ visible = false;
         case 1: // OPENING MESSAGE
             if (draw_offset &lt; 35)
             {
-                draw_offset+= 5;
+                draw_offset+= 2.5;
             } else {
                 slideDirection = 0;
-                alarm[0] = 120;
+                alarm[0] = 4 * room_speed;
             }
             break;
         
         case -1: // CLOSING MESSAGE
             if (draw_offset &gt; 0)
             {
-                draw_offset -= 5;
+                draw_offset -= 2.5;
             } else {
                 slideDirection = 0;
+                obj_gamejolt_control.achievetitle = ""
                 visible = false;
+                obj_gamejolt_control.achieved = false 
+                obj_gamejolt_control.isachieved = 0
             }
             break;
     }
 } else {
-    if (!ds_queue_empty(global.GJmessageQueue))
+    if (obj_gamejolt_control.achieved = true
+    &amp;&amp; obj_gamejolt_control.isachieved = "false")
     {
-        curTitle = ds_queue_dequeue(global.GJmessageQueue);
-        curMessage = ds_queue_dequeue(global.GJmessageQueue);
+        //curTitle = ds_queue_dequeue(global.GJmessageQueue);
+        //curMessage = ds_queue_dequeue(global.GJmessageQueue);
         slideDirection = 1;
         draw_offset = 0;
         visible = true;
@@ -141,12 +138,14 @@ visible = false;
             <string>var xx, yy;
 xx = view_xview[0] + view_wview[0] - 226;
 yy = view_yview[0] - 35 + draw_offset;
-
+draw_set_font(fnt_main)
+draw_set_halign(fa_left)
+draw_set_valign(fa_top)
 draw_sprite(spr_GJMessage, 0, xx, yy);
 draw_set_color(65484);
-draw_text(xx + 2, yy + 2, curTitle);
+draw_text(xx + 2, yy + 2, "ACHIEVEMENT GET!");
 draw_set_color(c_white);
-draw_text(xx + 4, yy + 16, curMessage);
+draw_text(xx + 4, yy + 16, obj_gamejolt_control.achievetitle);
 </string>
           </argument>
         </arguments>

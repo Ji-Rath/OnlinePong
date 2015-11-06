@@ -28,6 +28,14 @@
             <string>alarm[0]=30*room_speed;   // To continue pinging
 request[0] = -1
 request[1] = -1
+request[2] = -1
+text2 = ""
+test = false
+achievedesc = ""
+achievetitle = ""
+achieved = false
+isachieved = 0
+
 </string>
           </argument>
         </arguments>
@@ -80,6 +88,7 @@ alarm[0]=30*room_speed;   // To continue pinging
     if obj_scoreboard.player1score &gt; 0
     {
         gj_trophy_add("43961")
+        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
     }
 }
 
@@ -88,6 +97,7 @@ if instance_exists(obj_client) &amp;&amp; room = rm_multiplayer
     if obj_scoreboard.player2score &gt; 0
     {
         gj_trophy_add("43961")
+        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
     }
 }
 
@@ -96,7 +106,16 @@ if room = rm_solo
     if obj_sp_scoreboard.player1score &gt; 0 
     {
         gj_trophy_add("43961")
+        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
     }
+}
+
+if gj_user_isloggedin() &amp;&amp; test = false
+{
+    request[2] = gj_trophy_get_id("5035"); // Request for loading a trophy
+    gj_trophy_add("5035")
+    test = true
+
 }
 </string>
           </argument>
@@ -122,6 +141,44 @@ if room = rm_solo
             <kind>1</kind>
             <string>//Async HTTP event
 var resultid= gj_result_id();
+if resultid == request[2]
+    {
+
+        if gj_result_status() == 1
+
+        {
+
+            total = gj_result_data_count(); // Total trophy loaded
+
+            text2 = "";
+
+            for ( i = 0; i &lt; total; i++)
+
+            {
+
+                //text2 += gj_result_data_field_num( "id", i) +"#"; // the id of the i no trophy in the loaded map
+
+                achievetitle = gj_result_data_field_num( "title", i); // same as above
+
+                //achievedesc = gj_result_data_field_num( "description", i); // same as above
+                
+                isachieved = gj_result_data_field_num( "achieved", i); // same as above
+                
+                achieved = true
+
+                // "id", "title" those keys is available in the manual
+
+            }
+
+        }
+    }
+
+        else 
+
+ 
+
+            { show_message(gj_result_error());}
+
 if(resultid==request[0]) //If it was user information.
 {
     var status=gj_result_status();
@@ -133,7 +190,8 @@ if(resultid==request[0]) //If it was user information.
     else
     show_message("GameMaker error")
 }
-else if(resultid==request[1]) //If this are the scores.
+
+if(resultid==request[1]) //If this are the scores.
 {
     if(gj_result_status())
     {
@@ -146,9 +204,7 @@ else if(resultid==request[1]) //If this are the scores.
     }
 }
 
-var result = gj_result_id();
-
-if (result == request[0])
+if (resultid == request[0])
 
 {
 
@@ -241,12 +297,14 @@ gj_result_clear()
     draw_set_halign(fa_left)
     if gj_user_isloggedin()
     {
-    draw_text(50,50,"Welcome " + gj_user_username() + "!")
+    text = ("Welcome " + gj_user_username() + "!")
     }
     else
     {
-    draw_text(50,50,"You are not logged in")
+    text = ("You are not logged in")
     }
+
+draw_text(50,50,text)
 }
 </string>
           </argument>

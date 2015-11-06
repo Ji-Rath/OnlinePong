@@ -125,9 +125,10 @@
             <kind>1</kind>
             <string>if!(gj_user_autologin()) //Try to autologin, request username and token if that does not work.
 {
+var i
 obj_gamejolt_control.request[0]=gj_user_login(obj_gamejolt_login.user_txt,obj_gamejolt_login.token_txt)
-
 //scr_get_trophy("ACHIEVEMENT GET", gj_trophy_get_id("5035"))
+
 }
 </string>
           </argument>

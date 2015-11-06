@@ -25,8 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[0] = 4 * room_speed;
-
+            <string>//alarm[0] = 4 * room_speed;
+done = false
+go = false
 </string>
           </argument>
         </arguments>
@@ -49,8 +50,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hspeed = choose(8, -8);
-vspeed = random(10)-5;
+            <string>go = true
 </string>
           </argument>
         </arguments>
@@ -99,6 +99,39 @@ if(bbox_top &lt; 0) {
     if(playerScored != 0) {
         scr_playerscore(playerScored);
     }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if done = false &amp;&amp; global.ready = true &amp;&amp; go = true
+{
+hspeed = choose(5, -5);
+vspeed = random(10)-5;
+done = true
+}
+if go = false &amp;&amp; global.ready = true &amp;&amp; alarm[0] &lt; 0 &amp;&amp; instance_number(obj_getready) = 0
+{
+alarm[0] = 4 * room_speed
+instance_create(x,y,obj_getready)
+}
 </string>
           </argument>
         </arguments>

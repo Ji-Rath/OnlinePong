@@ -16,7 +16,7 @@ with(obj_sp_scoreboard)
 alarm[0] = 2 * room_speed;
 }
 
-if obj_sp_scoreboard.player2score = (global.points)
+if obj_sp_scoreboard.player1score = (global.points)
 {
         if obj_sp_scoreboard.player2score = 0
         {
@@ -26,7 +26,7 @@ if obj_sp_scoreboard.player2score = (global.points)
         gj_trophy_add("5034")
         room_goto(rm_menu)
 }
-if obj_sp_scoreboard.player1score = (global.points)
+if obj_sp_scoreboard.player2score = (global.points)
 {
         show_message("You have LOST the Pong Match!")
         room_goto(rm_menu)

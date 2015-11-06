@@ -29,6 +29,7 @@
 player2score = 0;
 scored = 0
 global.points = 10
+global.ready = true
 </string>
           </argument>
         </arguments>
