@@ -136,16 +136,16 @@ visible = false;
           <argument>
             <kind>1</kind>
             <string>var xx, yy;
-xx = view_xview[0] + view_wview[0] - 226;
+xx = view_xview[0] + view_wview[0] + 30//- 339;
 yy = view_yview[0] - 35 + draw_offset;
 draw_set_font(fnt_main)
 draw_set_halign(fa_left)
 draw_set_valign(fa_top)
 draw_sprite(spr_GJMessage, 0, xx, yy);
 draw_set_color(65484);
-draw_text(xx + 2, yy + 2, "ACHIEVEMENT GET!");
+draw_text(xx + 6, yy + 8, "ACHIEVEMENT GET!");
 draw_set_color(c_white);
-draw_text(xx + 4, yy + 16, obj_gamejolt_control.achievetitle);
+draw_text(xx + 6, yy + 30, obj_gamejolt_control.achievetitle);
 </string>
           </argument>
         </arguments>
