@@ -3,8 +3,28 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="1" name="datafiles">
+    <datafile>
+      <name>Instructions.pdf</name>
+      <exists>-1</exists>
+      <size>73010</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>Instructions.pdf</filename>
+    </datafile>
+  </datafiles>
   <NewExtensions>
     <extension index="0">extensions\Faucet Networking</extension>
+    <extension index="1">extensions\Draw Trail</extension>
   </NewExtensions>
   <sounds name="sound">
     <sound>sound\ScoreSnd</sound>
@@ -28,6 +48,12 @@
     <script>scripts\gj_init.gml</script>
     <script>scripts\scr_get_trophy.gml</script>
     <script>scripts\check_click.gml</script>
+    <script>scripts\popMessage.gml</script>
+    <script>scripts\draw_trail.gml</script>
+    <script>scripts\trail_init.gml</script>
+    <script>scripts\draw_trail_ext.gml</script>
+    <script>scripts\trail_calculate.gml</script>
+    <script>scripts\trail_destroy.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_main</font>
@@ -78,6 +104,7 @@
     <room>rooms\rm_multiplayer</room>
     <room>rooms\rm_solo</room>
     <room>rooms\rm_login</room>
+    <room>rooms\room_example</room>
   </rooms>
   <constants number="4">
     <constant name="GAME_PROP">4</constant>

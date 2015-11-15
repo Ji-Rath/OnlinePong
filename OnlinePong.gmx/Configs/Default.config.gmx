@@ -305,12 +305,12 @@
     <option_tizen_usesplash>False</option_tizen_usesplash>
     <option_use_new_audio>False</option_use_new_audio>
     <option_variableerrors>False</option_variableerrors>
-    <option_version>1.02</option_version>
+    <option_version>2.0.2</option_version>
     <option_version_build>0</option_version_build>
     <option_version_company>Iron Dagger</option_version_company>
     <option_version_copyright></option_version_copyright>
     <option_version_description>A simple Online Remake of the famous game, Pong!</option_version_description>
-    <option_version_major>1</option_version_major>
+    <option_version_major>2</option_version_major>
     <option_version_minor>0</option_version_minor>
     <option_version_product>Online Pong</option_version_product>
     <option_version_release>2</option_version_release>
@@ -359,7 +359,7 @@
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
     <option_windows_license>Configs\Default\windows\License.txt</option_windows_license>
     <option_windows_mainor_version>0</option_windows_mainor_version>
-    <option_windows_major_version>1</option_windows_major_version>
+    <option_windows_major_version>2</option_windows_major_version>
     <option_windows_nsis_file>Configs\Default\windows\RunnerInstaller.nsi</option_windows_nsis_file>
     <option_windows_product_info>Online Pong</option_windows_product_info>
     <option_windows_release_version>2</option_windows_release_version>

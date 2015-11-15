@@ -3,6 +3,17 @@ if(instance_exists(obj_gameserver)) {
     write_ubyte(obj_gameserver.opponentSocket, 2);
     write_ubyte(obj_gameserver.opponentSocket, PLAYER_SCORE);
     write_ubyte(obj_gameserver.opponentSocket, argument0);
+    with (obj_scoreboard)
+    {
+    alarm[1] = 10
+    }
+}
+else
+{
+    with (obj_scoreboard)
+    {
+    alarm[1] = 10
+    }
 }
 
 // Then, we actually perform the score event.
@@ -34,65 +45,4 @@ if obj_scoreboard.player2score = (global.points - 1)
     instance_create(0,0,obj_matchpoint)
 }
 
-//If Player 1 or Player 2 Wins
-if obj_scoreboard.player1score = (global.points)
-{
-    if instance_exists(obj_gameserver)
-    {
-        if obj_scoreboard.player2score = 0
-        {
-            gj_trophy_add("5038")
-            obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
-        }
-        
-        gj_trophy_add("5034")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
-        room_goto(rm_menu)
-        show_message("You have WON the Pong Match!")
-        with(obj_gameserver)
-        {
-            instance_destroy();
-        }
-    }
-    else
-    {
-        show_message("You have LOST the Pong Match!")
-        room_goto(rm_menu)
-        gj_trophy_add("43962")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
-        with(obj_client)
-        {
-            instance_destroy();
-        }
-    }
-}
-if obj_scoreboard.player2score = (global.points)
-{
-    if instance_exists(obj_client)
-    {
-        if obj_scoreboard.player1score = 0
-        {
-            gj_trophy_add("5038")
-            obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
-        }
-        show_message("You have WON the Pong Match!")
-        room_goto(rm_menu)
-        gj_trophy_add("5034")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
-        with(obj_client)
-        {
-            instance_destroy();
-        }
-    }
-    else
-    {
-        show_message("You have LOST the Pong Match!")
-        room_goto(rm_menu)
-        gj_trophy_add("43962")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
-        with(obj_gameserver)
-        {
-            instance_destroy();
-        }
-    }
-}
+

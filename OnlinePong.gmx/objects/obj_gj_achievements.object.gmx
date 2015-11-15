@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-100</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -28,6 +28,9 @@
             <string>slideDirection = 0;
 draw_offset = 0;
 visible = false;
+global.messageQueue = ds_queue_create();
+global.GJmessageQueue = ds_queue_create();
+achievetitle = 0
 </string>
           </argument>
         </arguments>
@@ -50,9 +53,13 @@ visible = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>if (ds_queue_empty(global.messageQueue))
+{
     slideDirection = -1;
-
+} else {
+    achievetitle = popMessage();
+    alarm[0] = 4 * room_speed;
+}
 </string>
           </argument>
         </arguments>
@@ -98,16 +105,34 @@ visible = false;
                 obj_gamejolt_control.achievetitle = ""
                 visible = false;
                 obj_gamejolt_control.achieved = false 
-                obj_gamejolt_control.isachieved = 0
+                obj_gamejolt_control.isachieved = ""
             }
             break;
     }
 } else {
-    if (obj_gamejolt_control.achieved = true
-    &amp;&amp; obj_gamejolt_control.isachieved = "false")
+    if (obj_gamejolt_control.achieved = true)
     {
-        //curTitle = ds_queue_dequeue(global.GJmessageQueue);
-        //curMessage = ds_queue_dequeue(global.GJmessageQueue);
+        if (obj_gamejolt_control.isachieved = "false")
+        {
+            //curTitle = ds_queue_dequeue(global.GJmessageQueue);
+            //curMessage = ds_queue_dequeue(global.GJmessageQueue);
+            slideDirection = 1;
+            draw_offset = 0;
+            visible = true;
+        }
+        else
+        {
+            if (obj_gamejolt_control.isachieved = "just now")
+            {
+                slideDirection = 1;
+                draw_offset = 0;
+                visible = true;
+            }
+        }
+    }
+    if (!ds_queue_empty(global.messageQueue) &amp;&amp; obj_gamejolt_control.isachieved = "false")
+    {
+        achievetitle = popMessage();
         slideDirection = 1;
         draw_offset = 0;
         visible = true;
@@ -145,7 +170,7 @@ draw_sprite(spr_GJMessage, 0, xx, yy);
 draw_set_color(65484);
 draw_text(xx + 6, yy + 8, "ACHIEVEMENT GET!");
 draw_set_color(c_white);
-draw_text(xx + 6, yy + 30, obj_gamejolt_control.achievetitle);
+draw_text(xx + 6, yy + 30, achievetitle);
 </string>
           </argument>
         </arguments>

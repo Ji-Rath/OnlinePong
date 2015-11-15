@@ -154,6 +154,7 @@ if(socket_has_error(serverSocket)) {
     if global.ready = false
     {
         gj_trophy_add("43965")
+        obj_gamejolt_control.request[2] = gj_trophy_get_id("43965"); // Request for loading a trophy
     }
     room_goto(rm_menu);
     obj_error_box.error = true

@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>alarm[0]=30*room_speed;   // To continue pinging
+alarm[1] = 1 * room_speed;
 request[0] = -1
 request[1] = -1
 request[2] = -1
@@ -41,32 +42,7 @@ isachieved = 0
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>gj_session_ping(true);
-
-alarm[0]=30*room_speed;   // To continue pinging
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="2" enumb="1">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -87,8 +63,8 @@ alarm[0]=30*room_speed;   // To continue pinging
 {
     if obj_scoreboard.player1score &gt; 0
     {
-        gj_trophy_add("43961")
-        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
+        request[2] = gj_trophy_get_id("44647"); // Request for loading a trophy
+        gj_trophy_add("44647")
     }
 }
 
@@ -117,6 +93,33 @@ if gj_user_isloggedin() &amp;&amp; test = false
     test = true
 
 }
+
+alarm[1] = 2 * room_speed
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>gj_session_ping(true);
+
+alarm[0]=30*room_speed;   // To continue pinging
 </string>
           </argument>
         </arguments>
@@ -159,10 +162,12 @@ if resultid == request[2]
                 //text2 += gj_result_data_field_num( "id", i) +"#"; // the id of the i no trophy in the loaded map
 
                 achievetitle = gj_result_data_field_num( "title", i); // same as above
+                ds_queue_enqueue(global.messageQueue, achievetitle);
 
                 //achievedesc = gj_result_data_field_num( "description", i); // same as above
                 
                 isachieved = gj_result_data_field_num( "achieved", i); // same as above
+                
                 
                 achieved = true
 
