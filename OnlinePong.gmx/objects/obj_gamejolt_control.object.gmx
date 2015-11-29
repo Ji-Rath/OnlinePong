@@ -25,18 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[0]=30*room_speed;   // To continue pinging
-alarm[1] = 1 * room_speed;
-request[0] = -1
+            <string>request[0] = -1
 request[1] = -1
 request[2] = -1
-text2 = ""
-test = false
-achievedesc = ""
-achievetitle = ""
-achieved = false
-isachieved = 0
-
+title = ""
+achieved = ""
+alarm[0] = 2 * room_speed
+alarm[1] = 30 * room_speed
 </string>
           </argument>
         </arguments>
@@ -59,42 +54,11 @@ isachieved = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if instance_exists(obj_gameserver) &amp;&amp; room = rm_multiplayer
+            <string>if gj_user_isloggedin()
 {
-    if obj_scoreboard.player1score &gt; 0
-    {
-        request[2] = gj_trophy_get_id("44647"); // Request for loading a trophy
-        gj_trophy_add("44647")
-    }
+    gj_session_ping(true)
 }
-
-if instance_exists(obj_client) &amp;&amp; room = rm_multiplayer
-{
-    if obj_scoreboard.player2score &gt; 0
-    {
-        gj_trophy_add("43961")
-        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
-    }
-}
-
-if room = rm_solo
-{
-    if obj_sp_scoreboard.player1score &gt; 0 
-    {
-        gj_trophy_add("43961")
-        request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
-    }
-}
-
-if gj_user_isloggedin() &amp;&amp; test = false
-{
-    request[2] = gj_trophy_get_id("5035"); // Request for loading a trophy
-    gj_trophy_add("5035")
-    test = true
-
-}
-
-alarm[1] = 2 * room_speed
+alarm[1] = 30 * room_speed
 </string>
           </argument>
         </arguments>
@@ -117,9 +81,37 @@ alarm[1] = 2 * room_speed
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>gj_session_ping(true);
+            <string>if gj_user_isloggedin()
+{
+    if instance_exists(obj_gameserver) &amp;&amp; room = rm_multiplayer
+    {
+        if obj_scoreboard.player1score &gt; 0
+        {
+            request[2] = gj_trophy_get_id("44647"); // Request for loading a trophy
+            gj_trophy_add("44647")
+        }
+    }
+    
+    if instance_exists(obj_client) &amp;&amp; room = rm_multiplayer
+    {
+        if obj_scoreboard.player2score &gt; 0
+        {
+            gj_trophy_add("43961")
+            request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
+        }
+    }
+    
+    if room = rm_solo
+    {
+        if obj_sp_scoreboard.player1score &gt; 0 
+        {
+            gj_trophy_add("43961")
+            request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
+        }
+    }
+}
 
-alarm[0]=30*room_speed;   // To continue pinging
+alarm[0] = 2 * room_speed
 </string>
           </argument>
         </arguments>
@@ -142,91 +134,58 @@ alarm[0]=30*room_speed;   // To continue pinging
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Async HTTP event
-var resultid= gj_result_id();
-if resultid == request[2]
-    {
+            <string>var resultid = gj_result_id()
 
-        if gj_result_status() == 1
-
-        {
-
-            total = gj_result_data_count(); // Total trophy loaded
-
-            text2 = "";
-
-            for ( i = 0; i &lt; total; i++)
-
-            {
-
-                //text2 += gj_result_data_field_num( "id", i) +"#"; // the id of the i no trophy in the loaded map
-
-                achievetitle = gj_result_data_field_num( "title", i); // same as above
-                ds_queue_enqueue(global.messageQueue, achievetitle);
-
-                //achievedesc = gj_result_data_field_num( "description", i); // same as above
-                
-                isachieved = gj_result_data_field_num( "achieved", i); // same as above
-                
-                
-                achieved = true
-
-                // "id", "title" those keys is available in the manual
-
-            }
-
-        }
-    }
-
-        else 
-
- 
-
-            { show_message(gj_result_error());}
-
-if(resultid==request[0]) //If it was user information.
+//If it was user information.
+if resultid = request[0]
 {
-    var status=gj_result_status();
-    if(status)
-    canproceed=true
-    else
-    if(status==0)
-    show_message(gj_result_error())
-    else
-    show_message("GameMaker error")
-}
-
-if(resultid==request[1]) //If this are the scores.
-{
-    if(gj_result_status())
+    var status = gj_result_status();
+    if status = 1
     {
-        var i;
-        for(i=0;i&lt;gj_result_data_count();i+=1)
-        {
-            score_name=gj_result_data_field_num("display_name",i)
-            score_score=gj_result_data_field_num("score",i)
-        }
-    }
-}
-
-if (resultid == request[0])
-
-{
-
-    if(gj_result_status())
-
-    {
-
         gj_session_open();
-
-        alarm[0]=30*room_speed;  
-
+        alarm[1] = 1
+        request[2] = gj_trophy_get_id("5035");
+        gj_trophy_add("5035")
     }
-
+    else
+    if status = 0
+    {
+        obj_error_box.textbox = (string(gj_result_error()));
+        obj_error_box.error = true
+    }
+    else
+    {
+        obj_error_box.textbox = ("GameMaker Error");
+        obj_error_box.error = true
+    }
 }
 
-gj_result_clear() 
+//If it was for fetching trophies
+if resultid == request[2]
+{
+    if gj_result_status() == 1
+    {
+        total = gj_result_data_count(); // Total trophies loaded
+        for ( i = 0; i &lt; total; i++)
+        {
+            title = gj_result_data_field_num( "title", i); // Fetch title of trophy
+            achieved = gj_result_data_field_num( "achieved", i); // Fetch if trophy is achieved
+            if achieved = "false" or achieved = "just now"
+            {
+                ds_queue_enqueue(obj_gj_achievements.title,title)
+            }
+            //"achieved", "title" are available in the manual
+        }
+    }
+}
+else
+{
+    obj_error_box.textbox = (string(gj_result_error()));
+    obj_error_box.error = true
+}
 
+
+gj_result_clear()
 </string>
           </argument>
         </arguments>
@@ -272,7 +231,7 @@ gj_result_clear()
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>gj_init("11051","6c86fc0e5ee2c96a07a97d8f52f904b7")
+            <string>gj_init("11051","0685e28524940bbff1024163bb7b4359")
 </string>
           </argument>
         </arguments>
@@ -295,21 +254,13 @@ gj_result_clear()
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room != rm_multiplayer
+            <string>if gj_user_isloggedin()
 {
-    draw_set_font(fnt_main)
-    draw_set_color(c_white)
-    draw_set_halign(fa_left)
-    if gj_user_isloggedin()
-    {
-    text = ("Welcome " + gj_user_username() + "!")
-    }
-    else
-    {
-    text = ("You are not logged in")
-    }
-
-draw_text(50,50,text)
+    draw_set_font(fnt_main);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_center);
+    draw_set_color(c_white);
+    draw_text(20,20,"Logged in as: " + string(gj_user_username()));
 }
 </string>
           </argument>

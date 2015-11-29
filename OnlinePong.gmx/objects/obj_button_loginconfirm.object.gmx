@@ -52,8 +52,6 @@
 {
     gj_trophy_add("5035")
     room_goto(rm_menu);
-    obj_error_box.textbox = ("Logged in as: " + gj_user_username());
-    obj_error_box.error = true
 }
 </string>
           </argument>
@@ -117,18 +115,18 @@
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>obj_gamejolt_control</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if!(gj_user_autologin()) //Try to autologin, request username and token if that does not work.
+            <string>if!!(gj_user_autologin()) //Try to autologin, request username and token if that does not work.
 {
-var i
-obj_gamejolt_control.request[0]=gj_user_login(obj_gamejolt_login.user_txt,obj_gamejolt_login.token_txt)
-//scr_get_trophy("ACHIEVEMENT GET", gj_trophy_get_id("5035"))
+request[0]=gj_user_login(string(obj_gamejolt_login.user_txt),string(obj_gamejolt_login.token_txt))
+//request[0]=gj_user_login("crazeh_boy709","gareth")
 
+//scr_get_trophy("ACHIEVEMENT GET", gj_trophy_get_id("5035"))
 }
 </string>
           </argument>

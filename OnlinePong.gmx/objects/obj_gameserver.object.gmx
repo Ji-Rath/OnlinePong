@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>acceptor = tcp_listen(6730);
+            <string>///Init variables
+acceptor = tcp_listen(6730);
 if(socket_has_error(acceptor)) {
     obj_error_box.textbox = ("Unable to start server: "+socket_error(acceptor));
     obj_error_box.error = true
@@ -59,7 +60,8 @@ global.points = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>socket_destroy(acceptor);
+            <string>///Destroy sockets
+socket_destroy(acceptor);
 socket_destroy(opponentSocket);
 </string>
           </argument>
@@ -83,7 +85,8 @@ socket_destroy(opponentSocket);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if global.ready = true
+            <string>///Sending information to client
+if global.ready = true
 {
     // Send the current state to the client
     // In a game with more players you wouldn't send all the state
@@ -94,10 +97,7 @@ socket_destroy(opponentSocket);
     write_ushort(opponentSocket, obj_leftpaddle.pressed_down);
     write_ushort(opponentSocket, obj_leftpaddle.y);
     
-    write_ubyte(opponentSocket, 5);
-    write_ubyte(opponentSocket, GAME_PROP);
-    write_ushort(opponentSocket, global.points);
-    write_ushort(opponentSocket, global.ready);
+
     
     write_ubyte(opponentSocket, 9);
     write_ubyte(opponentSocket, BALL_UPDATE);
@@ -106,8 +106,14 @@ socket_destroy(opponentSocket);
     write_short(opponentSocket, obj_ball.hspeed*256);
     write_short(opponentSocket, obj_ball.vspeed*256);
     
-    socket_send(opponentSocket);
 }
+    write_ubyte(opponentSocket, 5);
+    write_ubyte(opponentSocket, GAME_PROP);
+    write_ushort(opponentSocket, global.points);
+    write_ushort(opponentSocket, global.ready);    
+    
+    socket_send(opponentSocket);
+
 
 </string>
           </argument>
@@ -131,7 +137,8 @@ socket_destroy(opponentSocket);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if global.ready = true
+            <string>///Recieving information from the client
+if global.ready = true
 {
 // Handle input from the client
 // This is just a single unsigned short which tells the position of his paddle.
@@ -167,9 +174,10 @@ while(tcp_receive(opponentSocket, 6)) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if alarm[1] &lt; 0
+            <string>///Set Alarm[1]
+if alarm[1] &lt; 0
 {
-alarm[1] = 2
+alarm[1] = 1
 }
 </string>
           </argument>
@@ -193,7 +201,8 @@ alarm[1] = 2
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(opponentSocket &lt; 0) {
+            <string>///Error check and Movement
+if(opponentSocket &lt; 0) {
     // The game hasn't started yet
     exit;
 }
@@ -207,7 +216,7 @@ if(socket_has_error(opponentSocket)) {
 
 if alarm[0] &lt; 0
 {
-alarm[0] = 2
+alarm[0] = 1
 }
 
 // As the server, we move the left paddle
@@ -251,7 +260,8 @@ with(obj_leftpaddle) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if global.ready = true &amp;&amp; room = rm_waitroom
+            <string>///If host is ready
+if global.ready = true &amp;&amp; room = rm_waitroom
 {
     room_goto(rm_multiplayer);
 }
@@ -277,7 +287,8 @@ with(obj_leftpaddle) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room = rm_waitroom
+            <string>///Draw text while in waitroom
+if room = rm_waitroom
 {
 if(opponentSocket &lt; 0) {
     opponentSocket = socket_accept(acceptor);

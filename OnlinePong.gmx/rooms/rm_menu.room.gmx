@@ -56,10 +56,10 @@
     <instance objName="obj_button_quit" x="512" y="640" name="inst_05E22FCF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_button_connect" x="512" y="160" name="inst_2236802C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_button_solo" x="512" y="544" name="inst_ADDF19B8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_gamejolt_control" x="32" y="32" name="inst_C033A5D7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_button_gamejolt" x="512" y="256" name="inst_F63D5073" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_title" x="512" y="384" name="inst_94ECFC27" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_gj_achievements" x="32" y="64" name="inst_748679C0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_gamejolt_control" x="32" y="32" name="inst_3A3B742F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_gj_achievements" x="32" y="64" name="inst_98716F2F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

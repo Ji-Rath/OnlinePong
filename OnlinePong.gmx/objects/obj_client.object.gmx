@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var serverHost;
+            <string>///Init variables
+var serverHost;
 serverHost = get_string("Please enter the server's IP address or hostname", "127.0.0.1");
 
 serverSocket = tcp_connect(serverHost, 6730);
@@ -60,7 +61,8 @@ global.points = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//If Game has started
+            <string>///Recieving information from the server
+//If Game has started
 //if(socket_connecting(serverSocket) = false &amp;&amp;
 //socket_has_error(serverSocket) = false)
 if room = rm_multiplayer
@@ -142,7 +144,8 @@ socket_send(serverSocket);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/* Here we process messages from the server.
+            <string>///Movement and Error Checks
+/* Here we process messages from the server.
  * See the game constants for the message type definitions.
  * 
  * The protocol is relatively simple: Every message is preceded by a "header" 
@@ -165,7 +168,7 @@ if(socket_has_error(serverSocket)) {
 
 if alarm[1] &lt; 0
 {
-    alarm[1] = 2
+    alarm[1] = 1
 }
 
 
@@ -214,7 +217,8 @@ with(obj_rightpaddle)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if global.ready = false
+            <string>///Draw text when host is not ready
+if global.ready = false
 {
 
 if (socket_has_error(serverSocket) = false
@@ -230,6 +234,7 @@ if (socket_has_error(serverSocket) = false
     instance_create(room_width/2, room_height/2 + 40, obj_loading)
     }
     draw_text(room_width/2,room_height/2,"Found Match! Waiting for Host to start Game...")
+    draw_text(room_width/2,room_height/2 + 80,"Score to Win: " + string(global.points))
 }
 else
 {
