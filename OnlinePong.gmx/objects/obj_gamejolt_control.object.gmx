@@ -96,8 +96,8 @@ alarm[1] = 30 * room_speed
     {
         if obj_scoreboard.player2score &gt; 0
         {
-            gj_trophy_add("43961")
             request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
+            gj_trophy_add("43961")
         }
     }
     
@@ -105,8 +105,8 @@ alarm[1] = 30 * room_speed
     {
         if obj_sp_scoreboard.player1score &gt; 0 
         {
-            gj_trophy_add("43961")
             request[2] = gj_trophy_get_id("43961"); // Request for loading a trophy
+            gj_trophy_add("43961")
         }
     }
 }
@@ -159,11 +159,12 @@ if resultid = request[0]
         obj_error_box.error = true
     }
 }
-
+else
 //If it was for fetching trophies
-if resultid == request[2]
+if resultid = request[2]
 {
-    if gj_result_status() == 1
+    var status = gj_result_status();
+    if status = 1
     {
         total = gj_result_data_count(); // Total trophies loaded
         for ( i = 0; i &lt; total; i++)
@@ -177,11 +178,11 @@ if resultid == request[2]
             //"achieved", "title" are available in the manual
         }
     }
-}
-else
-{
-    obj_error_box.textbox = (string(gj_result_error()));
-    obj_error_box.error = true
+    else
+    {
+        obj_error_box.textbox = (string(gj_result_error()));
+        obj_error_box.error = true
+    }
 }
 
 

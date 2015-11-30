@@ -38,9 +38,9 @@ else
         var gj_key="",gj_value="",gj_returnstring=ds_map_find_value(async_load,"result");
         //Now removed because of HTML5
         //gj_returnstring=string_replace_all(gj_returnstring,"
-//","") //make it easier to read the map by removing all newlines.
-        //show_message(gj_returnstring) //Debugging
+//","") make it easier to read the map by removing all newlines.
         gj_returnstring=string_replace_all(gj_returnstring,'\"',"''") //Sorry, couldn't find a better way to do this.
+        //show_message(gj_returnstring) //Debugging
         //First always check the first line, as this always contains the status
         gj_key=string_copy(gj_returnstring,1,string_pos(':"',gj_returnstring)-1)
         gj_returnstring=string_delete(gj_returnstring,1,string_pos(':"',gj_returnstring)+1)

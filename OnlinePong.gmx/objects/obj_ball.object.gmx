@@ -27,6 +27,31 @@
             <kind>1</kind>
             <string>go = false
 done = false
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>    obj_gamejolt_control.request[2] = gj_trophy_get_id("5036"); // Request for loading a trophy
+    gj_trophy_add("5036")
 </string>
           </argument>
         </arguments>
@@ -124,14 +149,19 @@ if(global.isHost) {
             <kind>1</kind>
             <string>if done = false &amp;&amp; global.ready = true &amp;&amp; go = true
 {
-hspeed = choose(5, -5);
-vspeed = random(10)-5;
-done = true
+    hspeed = choose(5, -5);
+    vspeed = random(10)-5;
+    done = true
+    if gj_user_isloggedin()
+    {
+        alarm[1] = 180 * room_speed 
+    }
 }
+
 if go = false &amp;&amp; global.ready = true &amp;&amp; alarm[0] &lt; 0
 {
-alarm[0] = 4 * room_speed
-instance_create(x,y,obj_getready)
+    alarm[0] = 4 * room_speed
+    instance_create(x,y,obj_getready)
 }
 </string>
           </argument>
