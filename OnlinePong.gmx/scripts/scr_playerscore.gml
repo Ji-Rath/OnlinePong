@@ -30,18 +30,27 @@ if obj_sp_scoreboard.player1score = (global.points)
 {
         if obj_sp_scoreboard.player2score = 0
         {
-            gj_trophy_get("5038")
-            obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
+            if gj_user_isloggedin()
+            {
+                gj_trophy_add("5038")
+                obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
+            }        
         }
-        show_message("You have WON the Pong Match!")
-        gj_trophy_add("5034")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("5034")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        }
         room_goto(rm_menu)
+        show_message("You have WON the Pong Match!")
 }
 if obj_sp_scoreboard.player2score = (global.points)
 {
-        show_message("You have LOST the Pong Match!")
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("43962")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        }
         room_goto(rm_menu)
-        gj_trophy_add("43962")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        show_message("You have LOST the Pong Match!")
 }

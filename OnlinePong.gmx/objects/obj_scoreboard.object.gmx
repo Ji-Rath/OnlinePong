@@ -57,14 +57,16 @@ if obj_scoreboard.player1score = (global.points)
 {
     if instance_exists(obj_gameserver)
     {
-        if obj_scoreboard.player2score = 0
+        if obj_scoreboard.player2score = 0 &amp;&amp; gj_user_isloggedin()
         {
             gj_trophy_add("5038")
             obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
         }
-        
-        gj_trophy_add("5034")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("5034")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        }
         room_goto(rm_menu)
         show_message("You have WON the Pong Match!")
         with(obj_gameserver)
@@ -76,8 +78,11 @@ if obj_scoreboard.player1score = (global.points)
     {
         show_message("You have LOST the Pong Match!")
         room_goto(rm_menu)
-        gj_trophy_add("43962")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("43962")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        }
         with(obj_client)
         {
             instance_destroy();
@@ -88,15 +93,18 @@ if obj_scoreboard.player2score = (global.points)
 {
     if instance_exists(obj_client)
     {
-        if obj_scoreboard.player1score = 0
+        if obj_scoreboard.player1score = 0 &amp;&amp; gj_user_isloggedin()
         {
             gj_trophy_add("5038")
             obj_gamejolt_control.request[2] = gj_trophy_get_id("5038"); // Request for loading a trophy
         }
         show_message("You have WON the Pong Match!")
         room_goto(rm_menu)
-        gj_trophy_add("5034")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("5034")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("5034"); // Request for loading a trophy
+        }
         with(obj_client)
         {
             instance_destroy();
@@ -106,8 +114,11 @@ if obj_scoreboard.player2score = (global.points)
     {
         show_message("You have LOST the Pong Match!")
         room_goto(rm_menu)
-        gj_trophy_add("43962")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            gj_trophy_add("43962")
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("43962"); // Request for loading a trophy
+        }
         with(obj_gameserver)
         {
             instance_destroy();
@@ -138,9 +149,9 @@ if obj_scoreboard.player2score = (global.points)
           <argument>
             <kind>1</kind>
             <string>if(scored == 1) {
-    obj_ball.hspeed = 10;
+    obj_ball.hspeed = 6;
 } else {
-    obj_ball.hspeed = -10;
+    obj_ball.hspeed = -6;
 }
 
 obj_ball.vspeed = random(10)-5;
@@ -166,11 +177,15 @@ obj_ball.vspeed = random(10)-5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_halign(fa_center);
-draw_set_color(c_white);
+            <string>
+draw_set_halign(fa_center);
 draw_set_font(fnt_main_big)
+draw_set_color(global.colorleft);
 draw_text_transformed(room_width/3, 25, string(player1score), 2, 2, 0);
+draw_set_color(global.colorright);
 draw_text_transformed(2*room_width/3, 25, string(player2score), 2, 2, 0);
+
+draw_set_color(c_white);
 </string>
           </argument>
         </arguments>

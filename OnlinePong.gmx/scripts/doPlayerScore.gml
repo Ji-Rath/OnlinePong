@@ -18,6 +18,7 @@ else
 
 // Then, we actually perform the score event.
 sound_play(ScoreSnd);
+image_blend = c_white
 
 //Reset Ball Position and set score
 obj_scoreboard.scored = argument0;

@@ -25,15 +25,61 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>    if keyboard_check(ord("W"))
+            <string>if keyboard_check(ord("W"))
+{
+    y -= 10
+}
+if keyboard_check(ord("S"))
+{
+    y += 10
+}
+    
+//For Android Export
+y = mouse_y
+/////////////////////
+clipPaddlePosition();
+
+//Change Color if in arcade mode
+if global.gamemode = "arcade" or room = rm_customize
+{
+    if global.color = 0
     {
-        y -= 10
+        global.colorleft = c_white
     }
-    if keyboard_check(ord("S"))
+    if global.color = 1
     {
-        y += 10
+        global.colorleft = c_aqua
     }
-    clipPaddlePosition();
+    if global.color = 2
+    {
+        global.colorleft = c_green
+    }
+    if global.color = 3
+    {
+        global.colorleft = c_red
+    }
+    if global.color = 4
+    {
+        global.colorleft = c_yellow
+    }
+    if global.color = 5
+    {
+        global.colorleft = c_orange
+    }
+    if global.color = 6
+    {
+        global.colorleft = c_purple
+    }
+    
+    image_blend = global.colorleft
+    //0 = c_white
+    //1 = c_aqua
+    //2 = c_green
+    //3 = c_red
+    //4 = c_yellow
+    //5 = c_orange
+    //6 = c_purple
+}
 </string>
           </argument>
         </arguments>
@@ -56,7 +102,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_paddle,0,x,y)
+            <string>draw_self()
 </string>
           </argument>
         </arguments>

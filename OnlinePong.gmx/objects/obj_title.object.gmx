@@ -130,7 +130,14 @@ else
 {
 draw_set_font(fnt_main_title_big)
 }
-txt = "Welcome to ONLINE Pong!#Have Fun!"
+if gj_user_isloggedin()
+{
+    txt = "Welcome to ONLINE Pong,#"+ string(gj_user_username()) + "!#Have Fun!"
+}
+else
+{
+    txt = "Welcome to ONLINE Pong,#Guest!#Have Fun!"
+}
 image_xscale = string_width(txt)/4;
 image_yscale = string_height(txt)/4;
 draw_set_halign(fa_center)

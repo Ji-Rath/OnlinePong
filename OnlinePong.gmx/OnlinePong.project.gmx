@@ -24,7 +24,7 @@
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\Faucet Networking</extension>
-    <extension index="1">extensions\Draw Trail</extension>
+    <extension index="1">extensions\Flexi Full Scale</extension>
   </NewExtensions>
   <sounds name="sound">
     <sound>sound\ScoreSnd</sound>
@@ -86,11 +86,6 @@
     <script>scripts\scr_get_trophy.gml</script>
     <script>scripts\check_click.gml</script>
     <script>scripts\popMessage.gml</script>
-    <script>scripts\draw_trail.gml</script>
-    <script>scripts\trail_init.gml</script>
-    <script>scripts\draw_trail_ext.gml</script>
-    <script>scripts\trail_calculate.gml</script>
-    <script>scripts\trail_destroy.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_main</font>
@@ -99,11 +94,16 @@
     <font>fonts\fnt_main_title_big</font>
   </fonts>
   <objects name="objects">
+    <objects name="Game Mode Selection">
+      <object>objects\obj_button_ready</object>
+      <object>objects\obj_button_gamemode</object>
+    </objects>
     <objects name="Buttons">
       <object>objects\obj_button_host</object>
       <object>objects\obj_button_back</object>
       <object>objects\obj_button_connect</object>
       <object>objects\obj_button_solo</object>
+      <object>objects\obj_button_customize</object>
       <object>objects\obj_button_gamejolt</object>
       <object>objects\obj_button_logout</object>
       <object>objects\obj_button_login</object>
@@ -111,6 +111,7 @@
       <object>objects\obj_button_quit</object>
       <object>objects\obj_button_readyup</object>
       <object>objects\obj_button_maxpoints</object>
+      <object>objects\obj_button_colorchoose</object>
       <object>objects\obj_gamejolt_login</object>
     </objects>
     <objects name="Singleplayer">
@@ -131,20 +132,24 @@
     <object>objects\obj_getready</object>
     <object>objects\obj_matchpoint</object>
     <object>objects\obj_title</object>
-    <object>objects\obj_gamejolt_control_old</object>
-    <object>objects\obj_gj_achievements</object>
-    <object>objects\obj_lobby</object>
     <object>objects\obj_gamejolt_control</object>
+    <object>objects\obj_lobby</object>
+    <object>objects\obj_gj_achievements</object>
+    <object>objects\obj_trail_effect</object>
+    <object>objects\obj_control</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_customize</room>
     <room>rooms\rm_gamejolt</room>
     <room>rooms\rm_waitroom</room>
     <room>rooms\rm_multiplayer</room>
     <room>rooms\rm_solo</room>
+    <room>rooms\rm_sp_gamemode</room>
     <room>rooms\rm_login</room>
   </rooms>
-  <constants number="4">
+  <constants number="5">
+    <constant name="COLOR_UPDATE">5</constant>
     <constant name="GAME_PROP">4</constant>
     <constant name="PADDLES_UPDATE">1</constant>
     <constant name="BALL_UPDATE">2</constant>

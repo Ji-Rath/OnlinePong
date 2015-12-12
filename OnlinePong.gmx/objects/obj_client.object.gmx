@@ -37,8 +37,7 @@ expectedBytes = 1;
 
 room_goto(rm_multiplayer);
 
-global.ready = false
-global.points = 0
+
 </string>
           </argument>
         </arguments>
@@ -75,6 +74,11 @@ while(tcp_receive(serverSocket, expectedBytes)) {
         var messageType;
         messageType = read_ubyte(serverSocket);
         switch(messageType) {
+        
+        case COLOR_UPDATE:
+            global.color = read_short(serverSocket);
+            break;
+            
         case PADDLES_UPDATE:
             obj_leftpaddle.pressed_up = read_ushort(serverSocket);
             obj_leftpaddle.pressed_down = read_ushort(serverSocket);
@@ -84,6 +88,8 @@ while(tcp_receive(serverSocket, expectedBytes)) {
         case GAME_PROP:
             global.points = read_ushort(serverSocket);
             global.ready = read_ushort(serverSocket);
+            length = read_ubyte(serverSocket);
+            global.gamemode = read_string(serverSocket, length);
             break;
             
         case BALL_UPDATE:
@@ -108,6 +114,7 @@ while(tcp_receive(serverSocket, expectedBytes)) {
             break;
             
         default:
+            break;
             // Just ignore unknown messages
         }
         
@@ -120,6 +127,7 @@ while(tcp_receive(serverSocket, expectedBytes)) {
 write_short(serverSocket, obj_rightpaddle.pressed_up);
 write_short(serverSocket, obj_rightpaddle.pressed_down);
 write_short(serverSocket, obj_rightpaddle.y);
+write_short(serverSocket, global.color2);
 socket_send(serverSocket);
 }
 </string>
@@ -154,7 +162,7 @@ socket_send(serverSocket);
  */
  
 if(socket_has_error(serverSocket)) {
-    if global.ready = false
+    if global.ready = false &amp;&amp; gj_user_isloggedin()
     {
         gj_trophy_add("43965")
         obj_gamejolt_control.request[2] = gj_trophy_get_id("43965"); // Request for loading a trophy
@@ -235,6 +243,7 @@ if (socket_has_error(serverSocket) = false
     }
     draw_text(room_width/2,room_height/2,"Found Match! Waiting for Host to start Game...")
     draw_text(room_width/2,room_height/2 + 80,"Score to Win: " + string(global.points))
+    draw_text(room_width/2,room_height/2 + 120,"Gamemode: " + string(global.gamemode))
 }
 else
 {

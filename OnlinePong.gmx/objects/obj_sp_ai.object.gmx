@@ -8,6 +8,32 @@
   <parentName>obj_paddle</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if global.gamemode = "arcade"
+{
+    image_blend = choose(c_white, c_green, c_orange, c_yellow, c_purple, c_red, c_aqua)
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -25,7 +51,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(bbox_top &gt; 0 or bbox_bottom&lt;room_height)
+            <string>if y &lt; room_height &amp;&amp; y &gt; 0
+//if(bbox_top &gt; 0 or bbox_bottom&lt;room_height)
 {
 var yy;
 yy = (round(obj_sp_ball.y/10)*10)

@@ -28,7 +28,6 @@
             <string>player1score = 0;
 player2score = 0;
 scored = 0
-global.points = 10
 global.ready = true
 </string>
           </argument>
@@ -53,9 +52,9 @@ global.ready = true
           <argument>
             <kind>1</kind>
             <string>if(scored == 1) {
-    obj_sp_ball.hspeed = 8;
+    obj_sp_ball.hspeed = 6;
 } else {
-    obj_sp_ball.hspeed = -8;
+    obj_sp_ball.hspeed = -6;
 }
 
 obj_sp_ball.vspeed = random(10)-5;
@@ -81,10 +80,13 @@ obj_sp_ball.vspeed = random(10)-5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_halign(fa_center);
+            <string>draw_set_valign(fa_top)
+draw_set_halign(fa_center);
 draw_set_color(c_white);
 draw_set_font(fnt_main_big)
+if global.gamemode = "arcade" {draw_set_color(global.colorleft);}
 draw_text_transformed(room_width/3, 25, string(player1score), 2, 2, 0);
+draw_set_color(obj_sp_ai.image_blend)
 draw_text_transformed(2*room_width/3, 25, string(player2score), 2, 2, 0);
 </string>
           </argument>

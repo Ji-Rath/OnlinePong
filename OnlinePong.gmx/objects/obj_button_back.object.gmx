@@ -99,8 +99,11 @@
     with(obj_gameserver)
     {
         instance_destroy();
-        gj_trophy_add("43964")
-        obj_gamejolt_control.request[2] = gj_trophy_get_id("43964"); // Request for loading a trophy
+        if gj_user_isloggedin()
+        {
+            obj_gamejolt_control.request[2] = gj_trophy_get_id("43964"); // Request for loading a trophy
+            gj_trophy_add("43964")
+        }
     }
 }
 

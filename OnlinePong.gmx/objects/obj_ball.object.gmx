@@ -27,7 +27,37 @@
             <kind>1</kind>
             <string>go = false
 done = false
-
+amt = 0;
+alarm[2] = 5
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if global.gamemode = "arcade"
+{
+    var i;
+    i = instance_create(x,y,obj_trail_effect);
+    i.image_blend = image_blend
+}
+alarm[2] = 5
 </string>
           </argument>
         </arguments>
@@ -102,10 +132,12 @@ if(bbox_top &lt; 0) {
     vspeed = -vspeed;
     y += 2*(-bbox_top);
     sound_play(BumpSnd);
+    amt = 3;
 } else if(bbox_bottom &gt; room_height) {
     vspeed = -vspeed;
     y -= 2*(bbox_bottom - room_height);
     sound_play(BumpSnd);
+    amt = 3;
 }
 
 // Check if one player has scored
@@ -147,9 +179,36 @@ if(global.isHost) {
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///Screen Shake
+if global.gamemode = "arcade"
+{
+    view_angle[0] = -amt+(2*random(amt));
+    amt -= 0.5
+    if amt &lt;= 0 {view_angle[0] = 0}
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>if done = false &amp;&amp; global.ready = true &amp;&amp; go = true
 {
-    hspeed = choose(5, -5);
+    hspeed = choose(6, -6);
     vspeed = random(10)-5;
     done = true
     if gj_user_isloggedin()
@@ -185,9 +244,14 @@ if go = false &amp;&amp; global.ready = true &amp;&amp; alarm[0] &lt; 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>speed *= 1.2;
+            <string>if global.gamemode = "hardcore" {speed *= 1.3} else {speed *= 1.1;}
 direction = point_direction(other.x, other.y, x, y);
 sound_play(BumpSnd);
+if global.gamemode = "arcade"
+{
+    amt = 4;
+    image_blend = other.image_blend
+}
 </string>
           </argument>
         </arguments>

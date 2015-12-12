@@ -36,8 +36,6 @@ if(socket_has_error(acceptor)) {
 
 opponentSocket = -1;
 frame = 0;
-global.ready = false
-global.points = 0
 </string>
           </argument>
         </arguments>
@@ -107,10 +105,16 @@ if global.ready = true
     write_short(opponentSocket, obj_ball.vspeed*256);
     
 }
-    write_ubyte(opponentSocket, 5);
+    write_ubyte(opponentSocket, 6 + string_length(string(global.gamemode)));
     write_ubyte(opponentSocket, GAME_PROP);
     write_ushort(opponentSocket, global.points);
-    write_ushort(opponentSocket, global.ready);    
+    write_ushort(opponentSocket, global.ready);  
+    write_ubyte(opponentSocket, string_length(string(global.gamemode)))
+    write_string(opponentSocket, global.gamemode); 
+
+    write_ubyte(opponentSocket, 3);
+    write_ubyte(opponentSocket, COLOR_UPDATE);
+    write_short(opponentSocket, global.color);
     
     socket_send(opponentSocket);
 
@@ -144,11 +148,12 @@ if global.ready = true
 // This is just a single unsigned short which tells the position of his paddle.
 // We don't want to lag behind if we receive more than one in each frame, so
 // we'll just process as many messages as there are available.
-while(tcp_receive(opponentSocket, 6)) {
+while(tcp_receive(opponentSocket, 8)) {
     with(obj_rightpaddle) {
         pressed_up = read_short(other.opponentSocket);
         pressed_down = read_short(other.opponentSocket);
         y = read_short(other.opponentSocket);
+        global.color2 = read_short(other.opponentSocket);
     }
 }
 } 
@@ -304,12 +309,12 @@ if(opponentSocket &lt; 0) {
     {
         if instance_number(obj_button_readyup) = 0
         {
-            instance_create(room_width/2,room_height/2+120,obj_button_readyup)
+            instance_create(room_width/2,room_height/2+160,obj_button_readyup)
         }
     }
     if instance_number(obj_loading) = 0
     {
-    instance_create(room_width/2, room_height/2 + 40, obj_loading)
+        instance_create(room_width/2, room_height/2 + 40, obj_loading)
     }
 }
 else
@@ -326,6 +331,10 @@ else
     if instance_number(obj_button_maxpoints) = 0
     {
     instance_create(room_width/2, room_height/2 + 80, obj_button_maxpoints)
+    }
+    if instance_number(obj_button_gamemode) = 0
+    {
+    instance_create(room_width/2, room_height/2 + 120, obj_button_gamemode)
     }
 }
 }
